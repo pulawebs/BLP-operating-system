@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EGO//PROJECT — Football Evolution System</title>
+
+<style>
+:root{
+    --bg:#050609;
+    --panel:#0c0f15;
+    --panel2:#11151e;
+    --line:#202733;
+    --text:#f5f7fb;
+    --muted:#8d96a8;
+    --blue:#20b7ff;
+    --cyan:#6ee7ff;
+    --green:#7dff7a;
+    --red:#ff315d;
+    --yellow:#ffd84d;
+    --purple:#9b6cff;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+        radial-gradient(circle at 80% 10%,rgba(32,183,255,.12),transparent 30%),
+        radial-gradient(circle at 10% 80%,rgba(155,108,255,.08),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+}
+
+button,input,select,textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.app{
+    min-height:100vh;
+}
+
+/* NAV */
+
+nav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+    border-bottom:1px solid var(--line);
+    background:rgba(5,6,9,.88);
+    backdrop-filter:blur(16px);
+}
+
+.logo{
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:var(--blue);
+}
+
+.nav-links{
+    display:flex;
+    gap:8px;
+}
+
+.nav-links button{
+    background:none;
+    border:0;
+    color:var(--muted);
+    padding:10px 14px;
+    border-radius:8px;
+}
+
+.nav-links button:hover{
+    color:white;
+    background:#121722;
+}
+
+.mobile-menu{
+    display:none;
+}
+
+/* HERO */
+
+.hero{
+    min-height:calc(100vh - 70px);
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:40px;
+    align-items:center;
+    padding:70px 7%;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero:before{
+    content:"";
+    position:absolute;
+    width:700px;
+    height:700px;
+    border:1px solid rgba(32,183,255,.1);
+    border-radius:50%;
+    right:-300px;
+    top:-250px;
+    box-shadow:
+        0 0 100px rgba(32,183,255,.08),
+        inset 0 0 100px rgba(32,183,255,.05);
+}
+
+.eyebrow{
+    color:var(--blue);
+    letter-spacing:5px;
+    font-weight:bold;
+    font-size:12px;
+    margin-bottom:18px;
+}
+
+.hero h1{
+    font-size:clamp(50px,8vw,100px);
+    line-height:.88;
+    letter-spacing:-5px;
+    max-width:850px;
+}
+
+.hero h1 span{
+    color:var(--blue);
+    text-shadow:0 0 35px rgba(32,183,255,.35);
+}
+
+.hero p{
+    margin-top:25px;
+    max-width:650px;
+    color:var(--muted);
+    font-size:18px;
+    line-height:1.7;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:14px;
+    margin-top:35px;
+}
+
+.btn{
+    border:0;
+    padding:15px 23px;
+    border-radius:8px;
+    font-weight:800;
+    transition:.2s;
+}
+
+.btn-primary{
+    background:var(--blue);
+    color:#001018;
+    box-shadow:0 0 30px rgba(32,183,255,.2);
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 45px rgba(32,183,255,.4);
+}
+
+.btn-secondary{
+    background:#121722;
+    color:white;
+    border:1px solid var(--line);
+}
+
+/* EGO CARD */
+
+.ego-card{
+    min-height:500px;
+    border:1px solid var(--line);
+    background:
+        linear-gradient(145deg,rgba(32,183,255,.08),transparent 40%),
+        var(--panel);
+    border-radius:18px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:flex-end;
+    padding:35px;
+}
+
+.ego-aura{
+    position:absolute;
+    width:360px;
+    height:360px;
+    border-radius:50%;
+    background:rgba(32,183,255,.1);
+    filter:blur(50px);
+    top:40px;
+    left:50%;
+    transform:translateX(-50%);
+    animation:pulse 3s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:translateX(-50%) scale(.9);opacity:.5}
+    50%{transform:translateX(-50%) scale(1.1);opacity:1}
+}
+
+/* stylized coach avatar */
+
+.coach{
+    position:absolute;
+    left:50%;
+    top:55px;
+    transform:translateX(-50%);
+    width:220px;
+    height:330px;
+}
+
+.coach-head{
+    position:absolute;
+    width:135px;
+    height:170px;
+    background:#d8d8dc;
+    border-radius:48% 48% 43% 43%;
+    left:42px;
+    top:25px;
+    box-shadow:0 0 40px rgba(255,255,255,.08);
+}
+
+.coach-hair{
+    position:absolute;
+    width:150px;
+    height:85px;
+    background:#07090d;
+    left:34px;
+    top:8px;
+    border-radius:45% 45% 15% 15%;
+}
+
+.coach-neck{
+    position:absolute;
+    width:42px;
+    height:90px;
+    background:#c9c9cd;
+    left:89px;
+    top:170px;
+}
+
+.coach-body{
+    position:absolute;
+    width:190px;
+    height:145px;
+    background:#0b0d12;
+    left:15px;
+    top:220px;
+    border-radius:30px 30px 0 0;
+}
+
+.glasses{
+    position:absolute;
+    left:48px;
+    top:92px;
+    width:120px;
+    display:flex;
+    gap:5px;
+}
+
+.glasses div{
+    width:57px;
+    height:35px;
+    border:4px solid #080a0d;
+    background:rgba(20,30,40,.3);
+}
+
+.eyes{
+    position:absolute;
+    top:108px;
+    left:62px;
+    width:100px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.eye{
+    width:15px;
+    height:7px;
+    background:#111;
+}
+
+.coach-info{
+    position:relative;
+    z-index:2;
+}
+
+.coach-info h2{
+    font-size:30px;
+}
+
+.coach-info p{
+    color:var(--muted);
+    margin-top:7px;
+}
+
+/* GENERAL */
+
+section{
+    padding:100px 7%;
+}
+
+.section-title{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.section-subtitle{
+    color:var(--muted);
+    max-width:700px;
+    line-height:1.7;
+    margin-bottom:40px;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+    display:none;
+}
+
+.grid{
+    display:grid;
+    gap:18px;
+}
+
+.stats-grid{
+    grid-template-columns:repeat(6,1fr);
+}
+
+.card{
+    background:linear-gradient(145deg,#10141c,#090b10);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px;
+}
+
+.stat-card{
+    min-height:125px;
+}
+
+.stat-card small{
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.stat-value{
+    font-size:34px;
+    font-weight:900;
+    margin-top:12px;
+}
+
+.progress{
+    width:100%;
+    height:7px;
+    background:#1a202b;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:13px;
+}
+
+.progress-bar{
+    height:100%;
+    background:var(--blue);
+    width:0%;
+    transition:.5s;
+}
+
+/* ASSESSMENT */
+
+.assessment{
+    display:none;
+    max-width:900px;
+    margin:auto;
+}
+
+.question{
+    display:none;
+}
+
+.question.active{
+    display:block;
+}
+
+.question-number{
+    color:var(--blue);
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.question h2{
+    font-size:35px;
+    margin-bottom:25px;
+}
+
+.options{
+    display:grid;
+    gap:12px;
+}
+
+.option{
+    padding:18px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:#0b0e14;
+    color:white;
+    text-align:left;
+    transition:.2s;
+}
+
+.option:hover{
+    border-color:var(--blue);
+    background:#101a24;
+}
+
+.option.selected{
+    border-color:var(--blue);
+    background:rgba(32,183,255,.1);
+    box-shadow:0 0 20px rgba(32,183,255,.08);
+}
+
+.assessment-controls{
+    display:flex;
+    justify-content:space-between;
+    margin-top:30px;
+}
+
+.step-progress{
+    height:4px;
+    background:#161b24;
+    margin-bottom:40px;
+}
+
+.step-progress div{
+    height:100%;
+    width:0;
+    background:var(--blue);
+    transition:.3s;
+}
+
+/* RESULT */
+
+.result{
+    display:none;
+}
+
+.result-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.big-result{
+    font-size:55px;
+    font-weight:900;
+    color:var(--blue);
+}
+
+.weapon{
+    border-left:3px solid var(--blue);
+    padding-left:18px;
+    margin-top:20px;
+}
+
+.weapon h3{
+    font-size:23px;
+}
+
+.weapon p{
+    color:var(--muted);
+    line-height:1.6;
+    margin-top:7px;
+}
+
+/* MILESTONES */
+
+.milestones{
+    grid-template-columns:repeat(4,1fr);
+}
+
+.milestone{
+    position:relative;
+    min-height:180px;
+    opacity:.55;
+}
+
+.milestone.unlocked{
+    opacity:1;
+    border-color:var(--blue);
+}
+
+.milestone-number{
+    font-size:13px;
+    color:var(--blue);
+    letter-spacing:2px;
+}
+
+.milestone h3{
+    margin:14px 0 8px;
+}
+
+.milestone p{
+    color:var(--muted);
+    line-height:1.5;
+}
+
+/* TRAINING */
+
+.training-grid{
+    grid-template-columns:repeat(3,1fr);
+}
+
+.training-card h3{
+    font-size:21px;
+    margin-bottom:8px;
+}
+
+.training-card p{
+    color:var(--muted);
+    line-height:1.6;
+}
+
+.training-meta{
+    display:flex;
+    justify-content:space-between;
+    margin-top:18px;
+    font-size:13px;
+}
+
+.badge{
+    padding:5px 8px;
+    border-radius:5px;
+    background:#171d28;
+    color:var(--cyan);
+}
+
+.complete-btn{
+    margin-top:18px;
+    width:100%;
+    padding:11px;
+    border:1px solid var(--line);
+    background:#11151d;
+    color:white;
+    border-radius:7px;
+}
+
+.complete-btn:hover{
+    border-color:var(--green);
+}
+
+/* CHAT */
+
+.chat-wrap{
+    max-width:900px;
+    margin:auto;
+}
+
+.chat-window{
+    height:520px;
+    background:#07090d;
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow-y:auto;
+    padding:25px;
+}
+
+.message{
+    max-width:75%;
+    padding:15px 17px;
+    border-radius:10px;
+    margin-bottom:14px;
+    line-height:1.6;
+}
+
+.ego-message{
+    background:#111722;
+    border-left:3px solid var(--blue);
+}
+
+.user-message{
+    background:#142332;
+    margin-left:auto;
+}
+
+.chat-input{
+    display:flex;
+    gap:10px;
+    margin-top:12px;
+}
+
+.chat-input input{
+    flex:1;
+    background:#0d1118;
+    color:white;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:15px;
+    outline:none;
+}
+
+.chat-input input:focus{
+    border-color:var(--blue);
+}
+
+/* FOOTER */
+
+footer{
+    border-top:1px solid var(--line);
+    padding:40px 7%;
+    color:var(--muted);
+    text-align:center;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+    .stats-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .milestones{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .training-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:750px){
+    nav{
+        padding:0 20px;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .mobile-menu{
+        display:block;
+        background:none;
+        border:0;
+        color:white;
+        font-size:25px;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+        padding:55px 20px;
+    }
+
+    section{
+        padding:70px 20px;
+    }
+
+    .stats-grid,
+    .milestones,
+    .training-grid,
+    .result-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:58px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<nav>
+    <div class="logo">EGO<span>//</span>PROJECT</div>
+
+    <div class="nav-links">
+        <button onclick="showPage('dashboard')">Dashboard</button>
+        <button onclick="showPage('training')">Training</button>
+        <button onclick="showPage('milestones')">Evolution</button>
+        <button onclick="showPage('chat')">Ego Chat</button>
+    </div>
+
+    <button class="mobile-menu">☰</button>
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div>
+        <div class="eyebrow">FOOTBALL EVOLUTION SYSTEM // 001</div>
+
+        <h1>
+            FIND YOUR<br>
+            <span>EGO.</span><br>
+            BUILD YOUR<br>
+            WEAPON.
+        </h1>
+
+        <p>
+            Stop training randomly. Discover what makes you dangerous,
+            identify your football weapons, build your weaknesses,
+            and evolve through measurable progression.
+        </p>
+
+        <div class="hero-buttons">
+            <button class="btn btn-primary" onclick="startAssessment()">
+                BEGIN EGO ASSESSMENT
+            </button>
+
+            <button class="btn btn-secondary" onclick="showPage('chat')">
+                TALK TO EGO
+            </button>
+        </div>
+    </div>
+
+    <div class="ego-card">
+
+        <div class="ego-aura"></div>
+
+        <div class="coach">
+
+            <div class="coach-hair"></div>
+
+            <div class="coach-head"></div>
+
+            <div class="glasses">
+                <div></div>
+                <div></div>
+            </div>
+
+            <div class="eyes">
+                <div class="eye"></div>
+                <div class="eye"></div>
+            </div>
+
+            <div class="coach-neck"></div>
+            <div class="coach-body"></div>
+
+        </div>
+
+        <div class="coach-info">
+            <h2>JINPACHI EGO</h2>
+            <p>DIRECTOR // PLAYER EVOLUTION</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ASSESSMENT -->
+
+<section class="assessment" id="assessment">
+
+    <div class="eyebrow">PLAYER ANALYSIS</div>
+
+    <h2 class="section-title">I'M GOING TO FIND YOUR EGO.</h2>
+
+    <p class="section-subtitle">
+        Answer honestly. There are no impressive answers.
+        The system is looking for patterns in how you think,
+        compete, learn and react.
+    </p>
+
+    <div class="step-progress">
+        <div id="assessmentProgress"></div>
+    </div>
+
+    <div id="questions"></div>
+
+    <div class="assessment-controls">
+        <button class="btn btn-secondary" onclick="previousQuestion()">BACK</button>
+
+        <button class="btn btn-primary" onclick="nextQuestion()">NEXT</button>
+    </div>
+
+</section>
+
+
+<!-- RESULT -->
+
+<section class="result" id="result">
+
+    <div class="eyebrow">EGO ANALYSIS COMPLETE</div>
+
+    <h2 class="section-title">YOUR PLAYER PROFILE</h2>
+
+    <div class="result-grid">
+
+        <div class="card">
+
+            <div class="big-result" id="egoType">
+                ADAPTIVE
+            </div>
+
+            <p id="egoDescription" style="color:var(--muted);line-height:1.7;margin-top:15px"></p>
+
+            <div class="weapon">
+                <h3 id="weaponName">Unknown</h3>
+                <p id="weaponDescription"></p>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>LEARNING TYPE</h2>
+
+            <div class="big-result" id="learningType">
+                HYBRID
+            </div>
+
+            <p id="learningDescription" style="color:var(--muted);line-height:1.7;margin-top:15px"></p>
+
+            <div style="margin-top:25px">
+                <strong>CORE DRIVE</strong>
+                <p id="coreDrive" style="color:var(--cyan);margin-top:8px"></p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div style="margin-top:25px">
+        <button class="btn btn-primary" onclick="openDashboard()">
+            ENTER MY BLUE LOCK
+        </button>
+    </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section class="dashboard" id="dashboard">
+
+    <div class="eyebrow">PLAYER DATABASE</div>
+
+    <h2 class="section-title">YOUR EVOLUTION</h2>
+
+    <p class="section-subtitle">
+        Your player identity is not permanent.
+        Your actions create the player you become.
+    </p>
+
+    <div class="grid stats-grid">
+
+        <div class="card stat-card">
+            <small>LEVEL</small>
+            <div class="stat-value" id="level">1</div>
+        </div>
+
+        <div class="card stat-card">
+            <small>XP</small>
+            <div class="stat-value" id="xp">0</div>
+        </div>
+
+        <div class="card stat-card">
+            <small>STREAK</small>
+            <div class="stat-value" id="streak">0</div>
+        </div>
+
+        <div class="card stat-card">
+            <small>GAMES</small>
+            <div class="stat-value" id="games">0</div>
+        </div>
+
+        <div class="card stat-card">
+            <small>GOALS</small>
+            <div class="stat-value" id="goals">0</div>
+        </div>
+
+        <div class="card stat-card">
+            <small>ASSISTS</small>
+            <div class="stat-value" id="assists">0</div>
+        </div>
+
+    </div>
+
+    <div class="card" style="margin-top:20px">
+
+        <h2>PLAYER POWER</h2>
+
+        <div style="margin-top:20px">
+
+            <div style="display:flex;justify-content:space-between">
+                <span>Technique</span>
+                <span id="techniqueValue">50</span>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" id="techniqueBar"></div>
+            </div>
+
+        </div>
+
+        <div style="margin-top:18px">
+
+            <div style="display:flex;justify-content:space-between">
+                <span>Game IQ</span>
+                <span id="iqValue">50</span>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" id="iqBar"></div>
+            </div>
+
+        </div>
+
+        <div style="margin-top:18px">
+
+            <div style="display:flex;justify-content:space-between">
+                <span>Physical</span>
+                <span id="physicalValue">50</span>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" id="physicalBar"></div>
+            </div>
+
+        </div>
+
+        <div style="margin-top:18px">
+
+            <div style="display:flex;justify-content:space-between">
+                <span>Mental</span>
+                <span id="mentalValue">50</span>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" id="mentalBar"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MILESTONES -->
+
+<section id="milestones">
+
+    <div class="eyebrow">EVOLUTION TREE</div>
+
+    <h2 class="section-title">YOUR NEXT EVOLUTION</h2>
+
+    <p class="section-subtitle">
+        You don't unlock the next version of yourself by wanting it.
+        You unlock it by proving it.
+    </p>
+
+    <div class="grid milestones">
+
+        <div class="card milestone unlocked" data-required="0">
+            <div class="milestone-number">01 // FOUNDATION</div>
+            <h3>THE UNPOLISHED GEM</h3>
+            <p>Discover your identity and establish your baseline.</p>
+        </div>
+
+        <div class="card milestone" data-required="300">
+            <div class="milestone-number">02 // WEAPON</div>
+            <h3>WEAPONIZED</h3>
+            <p>Accumulate 300 XP and prove one repeatable strength.</p>
+        </div>
+
+        <div class="card milestone" data-required="700">
+            <div class="milestone-number">03 // AWAKENING</div>
+            <h3>AWAKENING</h3>
+            <p>Break through a weakness using measurable progression.</p>
+        </div>
+
+        <div class="card milestone" data-required="1500">
+            <div class="milestone-number">04 // FLOW</div>
+            <h3>FLOW</h3>
+            <p>Build consistency until high-level actions become natural.</p>
+        </div>
+
+        <div class="card milestone" data-required="3000">
+            <div class="milestone-number">05 // EVOLUTION</div>
+            <h3>ADAPTIVE MONSTER</h3>
+            <p>Your training begins changing according to your data.</p>
+        </div>
+
+        <div class="card milestone" data-required="5000">
+            <div class="milestone-number">06 // ELITE</div>
+            <h3>ELITE PLAYER</h3>
+            <p>Multiple weapons. High consistency. High decision quality.</p>
+        </div>
+
+        <div class="card milestone" data-required="10000">
+            <div class="milestone-number">07 // WORLD STAGE</div>
+            <h3>WORLD LEVEL</h3>
+            <p>Your objective becomes dominating stronger opposition.</p>
+        </div>
+
+        <div class="card milestone" data-required="20000">
+            <div class="milestone-number">08 // LEGACY</div>
+            <h3>CREATE YOUR THEORY</h3>
+            <p>Develop your own football philosophy and identity.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TRAINING -->
+
+<section id="training">
+
+    <div class="eyebrow">DAILY PROGRAM</div>
+
+    <h2 class="section-title">TODAY'S TRAINING</h2>
+
+    <p class="section-subtitle">
+        The system gives you focused work instead of endless random drills.
+        Difficulty increases when your performance proves you're ready.
+    </p>
+
+    <div class="grid training-grid" id="trainingGrid"></div>
+
+</section>
+
+
+<!-- CHAT -->
+
+<section id="chat">
+
+    <div class="chat-wrap">
+
+        <div class="eyebrow">DIRECT CONNECTION</div>
+
+        <h2 class="section-title">TALK TO EGO</h2>
+
+        <p class="section-subtitle">
+            Ask about your training, weaknesses, mentality, football
+            decisions or what you should focus on next.
+        </p>
+
+        <div class="chat-window" id="chatWindow">
+
+            <div class="message ego-message">
+                You want to become the best possible player you can be?
+                Then stop asking what you should do and show me what
+                you're capable of doing.
+                <br><br>
+                Give me your problem.
+            </div>
+
+        </div>
+
+        <div class="chat-input">
+
+            <input
+                id="chatInput"
+                placeholder="Tell Ego what you're struggling with..."
+                onkeydown="if(event.key==='Enter')sendMessage()"
+            >
+
+            <button class="btn btn-primary" onclick="sendMessage()">
+                SEND
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+    EGO//PROJECT — BUILD YOUR WEAPON. BECOME YOUR OWN THEORY.
+</footer>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   PLAYER DATABASE
+========================================================= */
+
+let player = JSON.parse(localStorage.getItem("egoPlayer")) || {
+
+    xp:0,
+    level:1,
+    streak:0,
+    games:0,
+    goals:0,
+    assists:0,
+
+    technique:50,
+    iq:50,
+    physical:50,
+    mental:50,
+
+    egoType:"UNKNOWN",
+    learningType:"UNKNOWN",
+    weapon:"UNKNOWN",
+    drive:"UNKNOWN",
+
+    completedTraining:[]
+};
+
+function savePlayer(){
+
+    localStorage.setItem(
+        "egoPlayer",
+        JSON.stringify(player)
+    );
+
+}
+
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function showPage(page){
+
+    const ids=[
+        "dashboard",
+        "training",
+        "milestones",
+        "chat",
+        "assessment",
+        "result"
+    ];
+
+    ids.forEach(id=>{
+
+        const element=document.getElementById(id);
+
+        if(element){
+
+            if(
+                id===page ||
+                (page==="milestones" && id==="milestones") ||
+                (page==="training" && id==="training")
+            ){
+                element.style.display="block";
+            }else if(
+                ["dashboard","assessment","result"].includes(id)
+            ){
+                element.style.display="none";
+            }
+
+        }
+
+    });
+
+    if(page==="dashboard"){
+        document.getElementById("dashboard").style.display="block";
+        updateDashboard();
+    }
+
+    if(page==="training"){
+        document.getElementById("training").style.display="block";
+        renderTraining();
+    }
+
+    window.scrollTo({
+        top:document.getElementById(page)?.offsetTop || 0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   ASSESSMENT
+========================================================= */
+
+const questions=[
+
+{
+    q:"When you receive the ball under pressure, what happens first?",
+    options:[
+        ["I immediately look for the best escape route.","adaptive"],
+        ["I trust my technical ability and attack the opponent.","creator"],
+        ["I scan for the most dangerous space.","analyst"],
+        ["I want to impose myself physically.","predator"]
+    ]
+},
+
+{
+    q:"What hurts you most after losing a match?",
+    options:[
+        ["Knowing I made the wrong decision.","analyst"],
+        ["Knowing someone outplayed me.","predator"],
+        ["Knowing I didn't express my ability.","creator"],
+        ["Knowing I couldn't adapt.","adaptive"]
+    ]
+},
+
+{
+    q:"When you discover a player better than you, you usually...",
+    options:[
+        ["Study them.","analyst"],
+        ["Try to beat them immediately.","predator"],
+        ["Copy what makes them effective.","adaptive"],
+        ["Create my own answer.","creator"]
+    ]
+},
+
+{
+    q:"What makes football feel most satisfying?",
+    options:[
+        ["Breaking down a defense.","analyst"],
+        ["Destroying a defender 1v1.","predator"],
+        ["Creating something nobody expected.","creator"],
+        ["Solving an impossible situation.","adaptive"]
+    ]
+},
+
+{
+    q:"How do you learn a new football skill?",
+    options:[
+        ["I repeat it until it becomes automatic.","learner"],
+        ["I understand why it works first.","analyst"],
+        ["I experiment until something clicks.","genius"],
+        ["I watch someone better and reconstruct it.","adaptive"]
+    ]
+},
+
+{
+    q:"Which statement sounds most like you?",
+    options:[
+        ["I improve through repetition.","learner"],
+        ["I learn fastest when challenged.","adaptive"],
+        ["I naturally see patterns others miss.","genius"],
+        ["I combine both natural ability and repetition.","hybrid"]
+    ]
+},
+
+{
+    q:"What do you want your opponents to think about you?",
+    options:[
+        ["They can never predict me.","adaptive"],
+        ["They can't stop my weapon.","predator"],
+        ["I'm always two steps ahead.","analyst"],
+        ["I'm capable of creating anything.","creator"]
+    ]
+},
+
+{
+    q:"When something isn't working in your game, you...",
+    options:[
+        ["Change immediately.","adaptive"],
+        ["Double down and force it.","predator"],
+        ["Analyze why.","analyst"],
+        ["Try something completely different.","creator"]
+    ]
+}
+
+];
+
+let currentQuestion=0;
+let answers=[];
+
+function startAssessment(){
+
+    document.getElementById("assessment").style.display="block";
+    document.getElementById("result").style.display="none";
+    document.getElementById("dashboard").style.display="none";
+
+    buildQuestions();
+
+    document.getElementById("assessment")
+        .scrollIntoView({behavior:"smooth"});
+
+}
+
+function buildQuestions(){
+
+    const container=document.getElementById("questions");
+
+    container.innerHTML="";
+
+    questions.forEach((question,index)=>{
+
+        const div=document.createElement("div");
+
+        div.className=
+            "question " +
+            (index===0 ? "active":"");
+
+        div.innerHTML=`
+
+            <div class="question-number">
+                QUESTION ${String(index+1).padStart(2,"0")}
+            </div>
+
+            <h2>${question.q}</h2>
+
+            <div class="options">
+
+                ${question.options.map((option,i)=>`
+
+                    <button
+                        class="option"
+                        data-value="${option[1]}"
+                        onclick="selectOption(${index},${i},this)"
+                    >
+                        ${option[0]}
+                    </button>
+
+                `).join("")}
+
+            </div>
+
+        `;
+
+        container.appendChild(div);
+
+    });
+
+    updateAssessmentProgress();
+
+}
+
+function selectOption(q,index,button){
+
+    answers[q]=questions[q].options[index][1];
+
+    button.parentElement
+        .querySelectorAll(".option")
+        .forEach(x=>x.classList.remove("selected"));
+
+    button.classList.add("selected");
+
+}
+
+function nextQuestion(){
+
+    if(!answers[currentQuestion]){
+
+        alert("You haven't answered the question.");
+
+        return;
+
+    }
+
+    if(currentQuestion<questions.length-1){
+
+        document
+            .querySelectorAll(".question")[currentQuestion]
+            .classList.remove("active");
+
+        currentQuestion++;
+
+        document
+            .querySelectorAll(".question")[currentQuestion]
+            .classList.add("active");
+
+        updateAssessmentProgress();
+
+    }else{
+
+        finishAssessment();
+
+    }
+
+}
+
+function previousQuestion(){
+
+    if(currentQuestion>0){
+
+        document
+            .querySelectorAll(".question")[currentQuestion]
+            .classList.remove("active");
+
+        currentQuestion--;
+
+        document
+            .querySelectorAll(".question")[currentQuestion]
+            .classList.add("active");
+
+        updateAssessmentProgress();
+
+    }
+
+}
+
+function updateAssessmentProgress(){
+
+    const percent=
+        ((currentQuestion+1)/questions.length)*100;
+
+    document.getElementById("assessmentProgress")
+        .style.width=percent+"%";
+
+}
+
+
+/* =========================================================
+   EGO ANALYSIS
+========================================================= */
+
+function finishAssessment(){
+
+    const counts={};
+
+    answers.forEach(answer=>{
+        counts[answer]=(counts[answer]||0)+1;
+    });
+
+    const ranked=
+        Object.entries(counts)
+        .sort((a,b)=>b[1]-a[1]);
+
+    const main=ranked[0]?.[0] || "adaptive";
+
+    const egoMap={
+
+        adaptive:{
+            name:"THE ADAPTER",
+            desc:"Your strongest weapon is evolution. You become dangerous when the environment changes because you refuse to remain the same player.",
+            weapon:"ADAPTABILITY",
+            weaponDesc:"Your development should focus on decision-making under changing pressure."
+        },
+
+        analyst:{
+            name:"THE ANALYST",
+            desc:"You naturally search for patterns, spaces and causes. Your weapon is understanding the game before others do.",
+            weapon:"GAME VISION",
+            weaponDesc:"Your development should focus on scanning, positioning, prediction and decision speed."
+        },
+
+        creator:{
+            name:"THE CREATOR",
+            desc:"You seek solutions other players don't expect. Your ego grows when you are given problems rather than instructions.",
+            weapon:"CREATIVITY",
+            weaponDesc:"Your development should focus on 1v1s, improvisation, passing angles and unpredictable actions."
+        },
+
+        predator:{
+            name:"THE PREDATOR",
+            desc:"You want confrontation. You become most dangerous when there is something to defeat.",
+            weapon:"ATTACKING INTENT",
+            weaponDesc:"Your development should focus on finishing, explosive actions and attacking decisions."
+        }
+
+    };
+
+    let learning;
+
+    if(
+        counts.genius >= 2
+    ){
+        learning="GENIUS";
+    }
+    else if(
+        counts.learner >= 2
+    ){
+        learning="TALENT LEARNER";
+    }
+    else{
+        learning="HYBRID";
+    }
+
+    player.egoType=egoMap[main]?.name || "ADAPTER";
+    player.weapon=egoMap[main]?.weapon || "ADAPTABILITY";
+    player.learningType=learning;
+    player.drive=main.toUpperCase();
+
+    savePlayer();
+
+    document.getElementById("egoType").textContent=
+        player.egoType;
+
+    document.getElementById("egoDescription").textContent=
+        egoMap[main]?.desc;
+
+    document.getElementById("weaponName").textContent=
+        egoMap[main]?.weapon;
+
+    document.getElementById("weaponDescription").textContent=
+        egoMap[main]?.weaponDesc;
+
+    document.getElementById("learningType").textContent=
+        learning;
+
+    document.getElementById("learningDescription").textContent=
+        learning==="GENIUS"
+        ? "You appear to learn especially well through experimentation and discovery."
+        : learning==="TALENT LEARNER"
+        ? "Your biggest advantage is structured repetition. You turn repetition into reliable weapons."
+        : "You combine experimentation with deliberate repetition.";
+
+    document.getElementById("coreDrive").textContent=
+        main.toUpperCase();
+
+    document.getElementById("assessment").style.display="none";
+    document.getElementById("result").style.display="block";
+
+    document.getElementById("result")
+        .scrollIntoView({behavior:"smooth"});
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function updateDashboard(){
+
+    document.getElementById("level").textContent=
+        player.level;
+
+    document.getElementById("xp").textContent=
+        player.xp;
+
+    document.getElementById("streak").textContent=
+        player.streak;
+
+    document.getElementById("games").textContent=
+        player.games;
+
+    document.getElementById("goals").textContent=
+        player.goals;
+
+    document.getElementById("assists").textContent=
+        player.assists;
+
+    setStat("technique",player.technique);
+    setStat("iq",player.iq);
+    setStat("physical",player.physical);
+    setStat("mental",player.mental);
+
+    updateMilestones();
+
+}
+
+function setStat(name,value){
+
+    document.getElementById(name+"Value")
+        .textContent=value;
+
+    document.getElementById(name+"Bar")
+        .style.width=value+"%";
+
+}
+
+function openDashboard(){
+
+    document.getElementById("result").style.display="none";
+    document.getElementById("dashboard").style.display="block";
+
+    updateDashboard();
+
+    document.getElementById("dashboard")
+        .scrollIntoView({behavior:"smooth"});
+
+}
+
+
+/* =========================================================
+   TRAINING ENGINE
+========================================================= */
+
+const baseTraining=[
+
+{
+    id:"scan",
+    title:"Blind-Side Scan",
+    category:"GAME IQ",
+    description:"Before receiving the ball, scan both shoulders and identify two options. Repeat under increasing time pressure.",
+    stat:"iq",
+    xp:75
+},
+
+{
+    id:"weakfoot",
+    title:"Weak-Foot Constraint",
+    category:"TECHNIQUE",
+    description:"Complete controlled passes and first touches using your weaker foot. Prioritize clean technique over speed.",
+    stat:"technique",
+    xp:60
+},
+
+{
+    id:"reaction",
+    title:"Random Reaction Gate",
+    category:"REACTION",
+    description:"Use a partner or random visual cue to decide left, right, stop or accelerate. The goal is decision speed.",
+    stat:"physical",
+    xp:70
+},
+
+{
+    id:"freeze",
+    title:"Freeze-Frame Football",
+    category:"VISION",
+    description:"During a small-sided game, mentally freeze the field before receiving. Name your next action before the ball arrives.",
+    stat:"iq",
+    xp:85
+},
+
+{
+    id:"finishing",
+    title:"Two-Decision Finish",
+    category:"FINISHING",
+    description:"Approach a scoring situation with two possible finishes. Choose based on the defender's position rather than pre-deciding.",
+    stat:"technique",
+    xp:80
+},
+
+{
+    id:"pressure",
+    title:"Pressure Escape",
+    category:"MENTAL",
+    description:"Create a small-area possession game where you deliberately receive under pressure and must make a calm first action.",
+    stat:"mental",
+    xp:65
+}
+
+];
+
+function renderTraining(){
+
+    const grid=document.getElementById("trainingGrid");
+
+    grid.innerHTML="";
+
+    baseTraining.forEach((training,index)=>{
+
+        const completed=
+            player.completedTraining.includes(training.id);
+
+        const difficulty=
+            Math.min(
+                5,
+                Math.floor(player.xp/500)+1
+            );
+
+        const card=document.createElement("div");
+
+        card.className="card training-card";
+
+        card.innerHTML=`
+
+            <div class="badge">
+                ${training.category}
+            </div>
+
+            <h3 style="margin-top:15px">
+                ${training.title}
+            </h3>
+
+            <p>
+                ${training.description}
+            </p>
+
+            <div class="training-meta">
+                <span>DIFFICULTY ${difficulty}/5</span>
+                <span>+${training.xp} XP</span>
+            </div>
+
+            <button
+                class="complete-btn"
+                ${completed?"disabled":""}
+                onclick="completeTraining('${training.id}')"
+            >
+                ${completed?"COMPLETED":"COMPLETE SESSION"}
+            </button>
+
+        `;
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+function completeTraining(id){
+
+    if(player.completedTraining.includes(id))
+        return;
+
+    const training=
+        baseTraining.find(x=>x.id===id);
+
+    if(!training)
+        return;
+
+    player.completedTraining.push(id);
+
+    player.xp+=training.xp;
+
+    player[training.stat]=
+        Math.min(
+            100,
+            player[training.stat]+2
+        );
+
+    player.level=
+        Math.floor(player.xp/250)+1;
+
+    player.streak++;
+
+    savePlayer();
+
+    renderTraining();
+
+    updateDashboard();
+
+    alert(
+        "EVOLUTION RECORDED\n\n"+
+        "+"+training.xp+" XP\n"+
+        "Level "+player.level
+    );
+
+}
+
+
+/* =========================================================
+   MILESTONES
+========================================================= */
+
+function updateMilestones(){
+
+    document
+        .querySelectorAll(".milestone")
+        .forEach(card=>{
+
+            const required=
+                Number(card.dataset.required);
+
+            if(player.xp>=required){
+
+                card.classList.add("unlocked");
+
+            }else{
+
+                card.classList.remove("unlocked");
+
+            }
+
+        });
+
+}
+
+
+/* =========================================================
+   EGO CHATBOT
+========================================================= */
+
+function sendMessage(){
+
+    const input=
+        document.getElementById("chatInput");
+
+    const text=
+        input.value.trim();
+
+    if(!text)
+        return;
+
+    addMessage(text,"user-message");
+
+    input.value="";
+
+    setTimeout(()=>{
+
+        const response=
+            generateEgoResponse(text);
+
+        addMessage(response,"ego-message");
+
+    },500);
+
+}
+
+function addMessage(text,className){
+
+    const window=
+        document.getElementById("chatWindow");
+
+    const message=
+        document.createElement("div");
+
+    message.className=
+        "message "+className;
+
+    message.textContent=text;
+
+    window.appendChild(message);
+
+    window.scrollTop=
+        window.scrollHeight;
+
+}
+
+function generateEgoResponse(text){
+
+    const t=text.toLowerCase();
+
+    if(
+        t.includes("tired") ||
+        t.includes("burnout") ||
+        t.includes("exhausted")
+    ){
+
+        return "Then recover. Fatigue is not proof of ambition. Training harder while exhausted can make your development worse. Your objective is progression, not punishment.";
+
+    }
+
+    if(
+        t.includes("slow") ||
+        t.includes("pace") ||
+        t.includes("speed")
+    ){
+
+        return "Your speed is not a personality trait. Measure it. Improve acceleration, movement mechanics and decision-making before the sprint. A player who sees the opening earlier often appears faster.";
+
+    }
+
+    if(
+        t.includes("stamina") ||
+        t.includes("fitness")
+    ){
+
+        return "Build your engine progressively. Don't turn every session into exhaustion. Football conditioning should teach you to repeat useful actions while maintaining quality.";
+
+    }
+
+    if(
+        t.includes("confidence") ||
+        t.includes("scared") ||
+        t.includes("nervous")
+    ){
+
+        return "Confidence without evidence is fantasy. Build evidence. Win small battles in training, reproduce them in games, then demand more from yourself.";
+
+    }
+
+    if(
+        t.includes("position") ||
+        t.includes("midfielder") ||
+        t.includes("cdm") ||
+        t.includes("cam")
+    ){
+
+        return "Stop asking which position sounds impressive. Ask which position allows your strongest weapon to decide games. Your data will determine the answer.";
+
+    }
+
+    if(
+        t.includes("weakness") ||
+        t.includes("bad at")
+    ){
+
+        return "Good. You found a weakness. Most players hide from weaknesses because their ego is fragile. We will measure it, attack it intelligently and determine whether it remains a weakness.";
+
+    }
+
+    if(
+        t.includes("best") ||
+        t.includes("world")
+    ){
+
+        return "Wanting to become the best means nothing by itself. Show me a measurable improvement tomorrow that you could not produce today. Then repeat it.";
+
+    }
+
+    if(
+        t.includes("workout") ||
+        t.includes("training")
+    ){
+
+        return "Your training must have a reason. Technique, perception, decision-making, physical capacity and competition. If an exercise doesn't transfer to football, question why you're doing it.";
+
+    }
+
+    if(
+        t.includes("ego")
+    ){
+
+        return "Your ego is not an insult to your teammates. It is the answer to one question: what can YOU become so good at that the game changes around you? Find that weapon.";
+
+    }
+
+    const responses=[
+
+        "Interesting. But your words are not data. What happened on the pitch? Give me a specific example.",
+
+        "Stop searching for motivation. Search for evidence. What did you improve this week?",
+
+        "Your current ability is only a snapshot. The interesting question is whether you can evolve faster than the players around you.",
+
+        "Then test it. Football is an experiment. Try something, observe the result, modify the method and repeat.",
+
+        "You are thinking about the destination. I'm interested in your next evolution."
+
+    ];
+
+    return responses[
+        Math.floor(Math.random()*responses.length)
+    ];
+
+}
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+function init(){
+
+    updateDashboard();
+
+    renderTraining();
+
+    updateMilestones();
+
+}
+
+init();
+
+</script>
+
+</body>
+</html>
