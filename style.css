@@ -1,0 +1,707 @@
+/* =========================================================
+   BLUE LOCK PROJECT — style.css
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+    --bg: #05070b;
+    --bg-light: #0b1018;
+    --panel: #101722;
+    --panel-2: #151e2c;
+
+    --blue: #00aaff;
+    --blue-bright: #00d9ff;
+    --blue-dark: #0066ff;
+
+    --white: #f5f9ff;
+    --muted: #8b98aa;
+
+    --green: #00ff9d;
+    --red: #ff3158;
+    --yellow: #ffd400;
+
+    --border: rgba(0, 174, 255, 0.2);
+    --glow: 0 0 30px rgba(0, 174, 255, 0.25);
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background:
+        radial-gradient(circle at 80% 10%, rgba(0, 140, 255, 0.12), transparent 30%),
+        radial-gradient(circle at 10% 90%, rgba(0, 90, 255, 0.08), transparent 30%),
+        var(--bg);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* =========================================================
+   BACKGROUND EFFECT
+   ========================================================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.12;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+
+    background-size: 50px 50px;
+    mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+nav,
+.navbar {
+    width: 100%;
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6%;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background: rgba(5, 7, 11, 0.85);
+    backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    font-family: 'Anton', sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: var(--blue-bright);
+
+    text-shadow:
+        0 0 10px rgba(0, 217, 255, 0.7);
+}
+
+.logo span {
+    color: white;
+}
+
+nav a,
+.navbar a {
+    color: var(--muted);
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+nav a:hover,
+.navbar a:hover {
+    color: var(--blue-bright);
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    min-height: calc(100vh - 75px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 80px 20px;
+
+    position: relative;
+}
+
+.hero-content {
+    max-width: 900px;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-family: 'Anton', sans-serif;
+
+    font-size: clamp(70px, 13vw, 170px);
+    line-height: 0.85;
+
+    letter-spacing: 4px;
+
+    color: white;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        5px 5px 0 var(--blue-dark),
+        0 0 40px rgba(0, 170, 255, 0.35);
+}
+
+.hero h1 span {
+    color: var(--blue-bright);
+}
+
+.hero p {
+    margin-top: 30px;
+
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.hero-buttons {
+    margin-top: 35px;
+
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+button,
+.btn {
+    border: none;
+    cursor: pointer;
+
+    padding: 14px 26px;
+
+    border-radius: 5px;
+
+    font-family: inherit;
+    font-weight: 800;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+}
+
+.btn-primary,
+button.primary {
+    background: var(--blue-bright);
+    color: #001018;
+
+    box-shadow:
+        0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.btn-primary:hover,
+button.primary:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 0 35px rgba(0, 217, 255, 0.55);
+}
+
+.btn-secondary,
+button.secondary {
+    background: transparent;
+    color: white;
+
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover,
+button.secondary:hover {
+    border-color: var(--blue);
+    color: var(--blue-bright);
+
+    transform: translateY(-3px);
+}
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+section {
+    padding: 100px 7%;
+}
+
+.section-title {
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    font-family: 'Anton', sans-serif;
+
+    font-size: clamp(45px, 7vw, 80px);
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+}
+
+.section-title h2 span {
+    color: var(--blue-bright);
+}
+
+.section-title p {
+    color: var(--muted);
+    margin-top: 10px;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.cards,
+.player-grid,
+.players,
+.stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 20px;
+}
+
+.card,
+.player-card,
+.stat-card {
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.05),
+            rgba(255,255,255,0.01)
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 25px;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s,
+        border-color 0.25s,
+        box-shadow 0.25s;
+}
+
+.card::before,
+.player-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 100%;
+    height: 3px;
+
+    top: 0;
+    left: 0;
+
+    background: var(--blue-bright);
+
+    transform: scaleX(0);
+    transform-origin: left;
+
+    transition: 0.3s;
+}
+
+.card:hover,
+.player-card:hover {
+    transform: translateY(-8px);
+
+    border-color: rgba(0, 217, 255, 0.5);
+
+    box-shadow: var(--glow);
+}
+
+.card:hover::before,
+.player-card:hover::before {
+    transform: scaleX(1);
+}
+
+.card h3,
+.player-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.card p,
+.player-card p {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+/* =========================================================
+   PLAYER CARDS
+   ========================================================= */
+
+.player-card {
+    min-height: 250px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.player-number {
+    position: absolute;
+
+    top: 15px;
+    right: 20px;
+
+    font-family: 'Anton', sans-serif;
+
+    font-size: 45px;
+
+    color: rgba(0, 217, 255, 0.12);
+}
+
+.player-position {
+    color: var(--blue-bright);
+
+    font-size: 12px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 5px;
+}
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stat-card {
+    text-align: center;
+}
+
+.stat-value {
+    font-family: 'Anton', sans-serif;
+
+    font-size: 55px;
+
+    color: var(--blue-bright);
+
+    text-shadow:
+        0 0 15px rgba(0, 217, 255, 0.4);
+}
+
+.stat-label {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+}
+
+/* =========================================================
+   PROGRESS BARS
+   ========================================================= */
+
+.progress {
+    width: 100%;
+    height: 9px;
+
+    background: #202a38;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin-top: 10px;
+}
+
+.progress-bar {
+    height: 100%;
+
+    width: 70%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue-dark),
+            var(--blue-bright)
+        );
+
+    box-shadow:
+        0 0 15px rgba(0, 217, 255, 0.4);
+
+    border-radius: inherit;
+}
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    margin-top: 8px;
+
+    background: #0a1019;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    color: white;
+
+    font-family: inherit;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--blue-bright);
+
+    box-shadow:
+        0 0 15px rgba(0, 217, 255, 0.15);
+}
+
+label {
+    display: block;
+
+    margin-top: 15px;
+
+    color: #b7c3d3;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+.dashboard {
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 50px 20px;
+}
+
+.dashboard-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 35px;
+}
+
+.dashboard-header h1 {
+    font-family: 'Anton', sans-serif;
+
+    font-size: 50px;
+}
+
+.dashboard-header span {
+    color: var(--blue-bright);
+}
+
+/* =========================================================
+   BLUE LOCK STYLE PANEL
+   ========================================================= */
+
+.blue-panel {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 170, 255, 0.08),
+            rgba(255,255,255,0.02)
+        );
+
+    border: 1px solid rgba(0, 217, 255, 0.25);
+
+    padding: 35px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        inset 0 0 40px rgba(0, 120, 255, 0.04),
+        var(--glow);
+}
+
+/* =========================================================
+   EGO / ALERT BOX
+   ========================================================= */
+
+.ego-box {
+    padding: 25px;
+
+    border-left: 4px solid var(--blue-bright);
+
+    background:
+        rgba(0, 174, 255, 0.07);
+
+    margin: 30px 0;
+}
+
+.ego-box h3 {
+    font-family: 'Anton', sans-serif;
+
+    font-size: 28px;
+
+    color: var(--blue-bright);
+
+    text-transform: uppercase;
+}
+
+.ego-box p {
+    color: var(--muted);
+
+    line-height: 1.6;
+
+    margin-top: 8px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    padding: 50px 7%;
+
+    border-top: 1px solid var(--border);
+
+    text-align: center;
+
+    color: var(--muted);
+
+    background: #030508;
+}
+
+footer strong {
+    color: var(--blue-bright);
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(0, 217, 255, 0.15);
+    }
+
+    50% {
+        box-shadow: 0 0 35px rgba(0, 217, 255, 0.4);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-content,
+.card,
+.player-card {
+    animation: slideUp 0.7s ease both;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    nav,
+    .navbar {
+        padding: 0 20px;
+    }
+
+    nav a,
+    .navbar a {
+        display: none;
+    }
+
+    .hero {
+        padding: 60px 20px;
+    }
+
+    .hero h1 {
+        font-size: 75px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
+
+    section {
+        padding: 70px 20px;
+    }
+
+    .section-title h2 {
+        font-size: 50px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dashboard-header h1 {
+        font-size: 40px;
+    }
+
+    .blue-panel {
+        padding: 22px;
+    }
+}
